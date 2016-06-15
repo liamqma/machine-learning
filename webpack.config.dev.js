@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
     // or devtool: 'eval' to debug issues with compiled output:
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     entry: [
         // listen to code updates emitted by hot middleware:
         'webpack-hot-middleware/client',
