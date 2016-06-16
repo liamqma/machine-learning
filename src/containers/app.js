@@ -10,9 +10,14 @@ class App extends Component {
         return (
             <div>
                 <button onClick={this.props.generatePoints}>Generate Points</button>
+                <button onClick={this.props.generateMeans}>Generate Means</button>
                 <div style={{width: `${scale}px`, height: `${scale}px`}} className="app">
                      {this.props.points.map((point, index) =>
                          <span key={index} data-x={point[0]} data-y={point[1]} className="point"
+                               style={{left: `${point[0]}px`, bottom: `${point[1]}px`}}></span>
+                     )}
+                     {this.props.means.map((point, index) =>
+                         <span key={index} data-x={point[0]} data-y={point[1]} className="point point--mean"
                                style={{left: `${point[0]}px`, bottom: `${point[1]}px`}}></span>
                      )}
                 </div>
