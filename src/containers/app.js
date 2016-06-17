@@ -10,7 +10,8 @@ class App extends Component {
         return (
             <div>
                 <button onClick={this.props.generatePoints}>Generate Points</button>
-                <button onClick={this.props.generateMeans}>Generate Means</button>
+                <button onClick={this.props.generateMeans}>Generate K Means</button>
+                <button onClick={this.props.makeAssignments}>MAKE Assignments</button>
                 <div style={{width: `${scale}px`, height: `${scale}px`}} className="app">
                      {this.props.points.map((point, index) =>
                          <span key={index} data-x={point[0]} data-y={point[1]} className="point"
