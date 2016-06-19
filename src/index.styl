@@ -10,14 +10,24 @@
     height: 5px
     background: black
 
-.point--0
-    background: green
+    &[data-type='0']
+        background: green
 
-.point--1
-    background: yellow
+    &[data-type='1']
+        background: red
 
-.point--2
-    background: blue
+    &[data-type='2']
+        background: blue
 
 .point--mean
-    background: red
+    &[data-type='0']
+        background: transparent
+        border: 1px solid green
+
+    &[data-type='1']
+        background: transparent
+        border: 1px solid red
+
+    &[data-type='2']
+        background: transparent
+        border: 1px solid blue

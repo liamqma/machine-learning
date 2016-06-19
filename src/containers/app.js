@@ -11,14 +11,14 @@ class App extends Component {
             <div>
                 <button onClick={this.props.generatePoints}>Generate Points</button>
                 <button onClick={this.props.generateMeans}>Generate K Means</button>
-                <button onClick={this.props.makeAssignments}>MAKE Assignments</button>
+                <button onClick={this.props.moveMeans}>Move Means</button>
                 <div style={{width: `${scale}px`, height: `${scale}px`}} className="app">
                      {this.props.points.map((point, index) =>
-                         <span key={index} data-x={point[0]} data-y={point[1]} className="point"
+                         <span key={index} data-x={point[0]} data-y={point[1]} data-type={this.props.assignments[index]} className="point"
                                style={{left: `${point[0]}px`, bottom: `${point[1]}px`}}></span>
                      )}
                      {this.props.means.map((point, index) =>
-                         <span key={index} data-x={point[0]} data-y={point[1]} className="point point--mean"
+                         <span key={index} data-x={point[0]} data-y={point[1]} data-type={index} className="point point--mean"
                                style={{left: `${point[0]}px`, bottom: `${point[1]}px`}}></span>
                      )}
                 </div>
