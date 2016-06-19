@@ -4,7 +4,8 @@ const initialState = {
     points: [],
     means: [],
     assignments: [],
-    scale: 400
+    scale: 400,
+    moved: false
 };
 
 function generatePoint(scale) {
@@ -38,41 +39,35 @@ function getAssignments(points, means) {
     return assignments;
 }
 
-function getMeans(means, assignments, points, scale) {
+function calcMeans(means, assignments, points, scale) {
 
-    var sums = Array( means.length );
-    var counts = Array( means.length );
+    var sums = Array(means.length);
+    var counts = Array(means.length);
     var moved = false;
 
-    for (var j in means)
-    {
+    for (var j in means) {
         counts[j] = 0;
-        sums[j] = Array( means[j].length );
-        for (var dimension in means[j])
-        {
+        sums[j] = Array(means[j].length);
+        for (var dimension in means[j]) {
             sums[j][dimension] = 0;
         }
     }
 
-    for (var point_index in assignments)
-    {
+    for (var point_index in assignments) {
         var mean_index = assignments[point_index];
         var point = points[point_index];
         var mean = means[mean_index];
 
         counts[mean_index]++;
 
-        for (var dimension in mean)
-        {
+        for (var dimension in mean) {
             sums[mean_index][dimension] += point[dimension];
         }
     }
 
-    for (var mean_index in sums)
-    {
+    for (var mean_index in sums) {
         console.log(counts[mean_index]);
-        if ( 0 === counts[mean_index] )
-        {
+        if (0 === counts[mean_index]) {
             sums[mean_index] = means[mean_index];
             console.log("Mean with no points");
             console.log(sums[mean_index]);
@@ -81,20 +76,16 @@ function getMeans(means, assignments, points, scale) {
             continue;
         }
 
-        for (var dimension in sums[mean_index])
-        {
+        for (var dimension in sums[mean_index]) {
             sums[mean_index][dimension] /= counts[mean_index];
         }
     }
 
-    if (means.toString() !== sums.toString())
-    {
+    if (means.toString() !== sums.toString()) {
         moved = true;
     }
 
-    console.log(moved);
-
-    return sums;
+    return { means: sums, moved };
 }
 
 export default function reducer(state = initialState, action) {
@@ -135,11 +126,13 @@ export default function reducer(state = initialState, action) {
         case 'MOVE_MEANS':
 
             const assignments = getAssignments(state.points, state.means);
+            const { means, moved } = calcMeans(state.means, assignments, state.points, state.scale);
 
             return {
                 ...state,
                 assignments,
-                means: getMeans(state.means, assignments, state.points, state.scale)
+                means,
+                moved
             };
         default:
             return state;
