@@ -41,13 +41,13 @@ function getAssignments(points, means) {
 
 function calcMeans(means, assignments, points, scale) {
 
-    var sums = Array(means.length);
-    var counts = Array(means.length);
+    var sums = new Array(means.length);
+    var counts = new Array(means.length);
     var moved = false;
 
     for (var j in means) {
         counts[j] = 0;
-        sums[j] = Array(means[j].length);
+        sums[j] = new Array(means[j].length);
         for (var dimension in means[j]) {
             sums[j][dimension] = 0;
         }
@@ -72,7 +72,7 @@ function calcMeans(means, assignments, points, scale) {
             console.log("Mean with no points");
             console.log(sums[mean_index]);
 
-            sums[mean_index][dimension] = generatePoint(scale);
+            sums[mean_index] = generatePoint(scale);
             continue;
         }
 
@@ -121,7 +121,7 @@ export default function reducer(state = initialState, action) {
         case 'GENERATE_MEANS':
             return {
                 ...state,
-                means: fill(Array(3), 0).map(generatePoint.bind(null, state.scale))
+                means: fill(new Array(3), 0).map(generatePoint.bind(null, state.scale))
             };
         case 'MOVE_MEANS':
 
