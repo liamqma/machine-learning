@@ -5,7 +5,8 @@ const initialState = {
     means: [],
     assignments: [],
     scale: 400,
-    moved: false
+    moved: false,
+    step: 0
 };
 
 function generatePoint(scale) {
@@ -93,6 +94,7 @@ export default function reducer(state = initialState, action) {
         case 'GENERATE_POINTS': {
             return {
                 ...state,
+                step: 1,
                 points: [
                     [random(0, state.scale / 2), random(0, state.scale / 2)],
                     [random(0, state.scale / 2), random(0, state.scale / 2)],
@@ -121,6 +123,7 @@ export default function reducer(state = initialState, action) {
         case 'GENERATE_MEANS':
             return {
                 ...state,
+                step: 2,
                 means: fill(new Array(3), 0).map(generatePoint.bind(null, state.scale))
             };
         case 'MOVE_MEANS':
@@ -130,6 +133,7 @@ export default function reducer(state = initialState, action) {
 
             return {
                 ...state,
+                step: 3,
                 assignments,
                 means,
                 moved

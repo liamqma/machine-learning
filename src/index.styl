@@ -1,34 +1,39 @@
-.app
-    border-left: 1px solid black
-    border-bottom: 1px solid black
-    position: relative
-    margin: 0 auto
+.k-means
+    .app
+        border-left: 1px solid black
+        border-bottom: 1px solid black
+        position: relative
+        margin: 0 auto
 
-.point
-    position: absolute
-    display: block
-    width: 5px
-    height: 5px
-    background: black
+    .point
+        position: absolute
+        display: block
+        width: 5px
+        height: 5px
+        background: black
 
-    &[data-type='0']
-        background: green
+        &[data-type='0']
+            background: green
 
-    &[data-type='1']
-        background: red
+        &[data-type='1']
+            background: red
 
-    &[data-type='2']
-        background: blue
+        &[data-type='2']
+            background: blue
 
-.point--mean
-    &[data-type='0']
-        background: transparent
-        border: 1px solid green
+    .point--mean
+        &[data-type='0']
+            background: transparent
+            border: 1px solid green
 
-    &[data-type='1']
-        background: transparent
-        border: 1px solid red
+        &[data-type='1']
+            background: transparent
+            border: 1px solid red
 
-    &[data-type='2']
-        background: transparent
-        border: 1px solid blue
+        &[data-type='2']
+            background: transparent
+            border: 1px solid blue
+    li.done
+        text-decoration: line-through
+
+

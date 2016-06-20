@@ -2,31 +2,36 @@ import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import * as actions from "../modules/k-means";
 import { connect } from "react-redux";
+import classnames from "classnames";
 
-const scale = 400;
+const DELAY_BETWEEN_STEPS = 1000;
 
 class App extends Component {
     start() {
         this.props.generatePoints();
-        this.props.generateMeans();
-        this.props.moveMeans();
+        setTimeout(this.props.generateMeans, DELAY_BETWEEN_STEPS);
+        setTimeout(this.props.moveMeans, DELAY_BETWEEN_STEPS * 2);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.moved) {
-            this.props.moveMeans();
+            setTimeout(this.props.moveMeans, DELAY_BETWEEN_STEPS);
         }
     }
+
     render() {
         return (
-            <div>
-                <h2><a href="http://burakkanber.com/blog/machine-learning-k-means-clustering-in-javascript-part-1/">k-Means</a></h2>
+            <div className="k-means">
+                <h2><a href="http://burakkanber.com/blog/machine-learning-k-means-clustering-in-javascript-part-1/">k-Means</a>
+                </h2>
                 <button onClick={this.start.bind(this)}>Run</button>
                 <ul>
-                    <li>Plot your data points</li>
-                    <li>Create "k" additional points, placing them randomly on your graph. These points are the "cluster
+                    <li className={classnames({ done: this.props.step > 0 })}>Plot your data points</li>
+                    <li className={classnames({ done: this.props.step > 1 })}>Create "k" additional points, placing them
+                        randomly on your graph. These points are the "cluster
                         centroids" -- or the candidates for the centers of your clusters
                     </li>
-                    <li>Repeat the following:
+                    <li className={classnames({ done: this.props.step > 2 })}>Repeat the following:
                         <ol>
                             <li>"Assign" each data point to the cluster centroid closest to it</li>
                             <li>Move the centroid to the average position of all the data points that belong to it</li>
@@ -34,7 +39,7 @@ class App extends Component {
                         </ol>
                     </li>
                 </ul>
-                <div style={{ width: `${scale}px`, height: `${scale}px` }} className="app">
+                <div style={{ width: `${this.props.scale}px`, height: `${this.props.scale}px` }} className="app">
                      {this.props.points.map((point, index) =>
                          <span key={index} data-x={point[0]} data-y={point[1]} data-type={this.props.assignments[index]}
                                className="point"
