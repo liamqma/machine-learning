@@ -22,7 +22,7 @@ class App extends Component {
     render() {
         return (
             <div className="k-means">
-                <h2><a href="http://burakkanber.com/blog/machine-learning-k-means-clustering-in-javascript-part-1/">k-Means</a>
+                <h2><a href="http://burakkanber.com/blog/machine-learning-k-means-clustering-in-javascript-part-1/" target="_blank">k-Means</a>
                 </h2>
                 <button onClick={this.start.bind(this)}>Run</button>
                 <ul>
